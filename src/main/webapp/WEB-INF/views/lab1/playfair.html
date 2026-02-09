@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Плейфер</title>
+</head>
+<body>
+
+<a href="/lab1">Навигация по лабораторной №1</a>
+
+    <form method="post" action="/lab1/playfair" >
+<!-- с ним вообще нихуя не сабмитится       enctype="multipart/form-data"-->
+        <label for="text">Текст для шифра Плейфера на английском языке</label>
+        <input type="text" name="text" id="text"/>
+
+        <br>
+
+        <label for="file">Файл</label>
+        <input type="file" name="file" id="file"/>
+
+        <br>
+
+        <button type="submit" name="action" value="Зашифровать">Зашифровать</button>
+        <button type="submit" name="action" value="Расшифровать">Расшифровать</button>
+
+    </form>
+
+    <p th:text="${result}"></p>
+
+</body>
+</html>
