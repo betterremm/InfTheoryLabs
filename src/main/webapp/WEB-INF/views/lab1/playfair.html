@@ -8,14 +8,21 @@
 
 <a href="/lab1">Навигация по лабораторной №1</a>
 
-    <form method="post" action="/lab1/playfair" >
-<!-- с ним вообще нихуя не сабмитится       enctype="multipart/form-data"-->
+    <form method="post" action="/lab1/playfair" enctype="multipart/form-data">
         <label for="text">Текст для шифра Плейфера на английском языке</label>
-        <input type="text" name="text" id="text"/>
 
         <br>
 
-        <label for="file">Файл</label>
+        <label for="key">Ключ</label><input type="text" name="key" id="key"/>
+
+        <br>
+
+        <label for="text">Текст</label><input type="text" name="text" id="text"/>
+
+        <br>
+        <p>ИЛИ</p>
+
+        <label for="file">Файл в формате КЛЮЧ:ТЕКСТ</label>
         <input type="file" name="file" id="file"/>
 
         <br>
@@ -23,6 +30,7 @@
         <button type="submit" name="action" value="Зашифровать">Зашифровать</button>
         <button type="submit" name="action" value="Расшифровать">Расшифровать</button>
 
+        <br>
     </form>
 
     <p th:text="${result}"></p>

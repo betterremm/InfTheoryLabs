@@ -1,6 +1,7 @@
 package by.betterremm.InformationTheory.config;
 
-import org.jspecify.annotations.NullMarked;
+import jakarta.servlet.MultipartConfigElement;
+import jakarta.servlet.ServletRegistration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class MySpringMVCDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -21,4 +22,15 @@ public class MySpringMVCDispatcherServletInitializer extends AbstractAnnotationC
     protected String[] getServletMappings() {
         return new String[] {"/"};
     }
+
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        registration.setMultipartConfig(new MultipartConfigElement(
+                null,
+                5_000_000,
+                5_000_000,
+                0
+        ));
+    }
+
 }

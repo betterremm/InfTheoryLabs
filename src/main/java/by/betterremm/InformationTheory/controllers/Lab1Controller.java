@@ -9,12 +9,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 
 import java.io.IOException;
 
 @Controller
 @RequestMapping("/lab1")
 public class Lab1Controller {
+
+    private final SpringResourceTemplateResolver springResourceTemplateResolver;
+
+    public Lab1Controller(SpringResourceTemplateResolver springResourceTemplateResolver) {
+        this.springResourceTemplateResolver = springResourceTemplateResolver;
+    }
 
     @GetMapping("")
     public String nav(Model model) {
@@ -34,6 +41,7 @@ public class Lab1Controller {
             @RequestParam(name = "action", required = false) String action,
             Model model) {
         String inputData;
+        System.out.println(file == null ? "null" : file.getOriginalFilename());
         if (file != null) {
             try {
                 inputData = new String(file.getBytes());
