@@ -14,7 +14,11 @@
         <br>
         <label for="file">Файл</label>
         <input type="file" name="file" id="file"/>
-        <p>ИЛИ</p>
+        <a>
+
+            ИЛИ
+
+        </a>
         <label for="text">Текст</label><input type="text" name="text" id="text"/>
         <br>
         <br>
@@ -27,7 +31,7 @@
 
     <p th:text="${result}" id="result"></p>
 
-    <a href="/playfair/download" th:if="${result} != 0">Скачать результат</a>
+    <a href="/lab1/playfair/download" th:if="${result != null and result != ''}">Скачать результат</a>
 
 </body>
 </html>

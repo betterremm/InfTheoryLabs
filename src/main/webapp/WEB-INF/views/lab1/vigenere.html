@@ -2,11 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Виженер</title>
+    <title>Плейфер</title>
 </head>
 <body>
 
-    <a href="/lab1">Навигация по лабораторной №1</a>
+<a href="/lab1">Навигация по лабораторной №1</a>
+
+<form method="post" action="/lab1/vigenere" enctype="multipart/form-data">
+    <label for="text">Текст для шифра Виженера на английском языке</label>
+
+    <br>
+    <label for="file">Файл</label>
+    <input type="file" name="file" id="file"/>
+    <a>
+
+        ИЛИ
+
+    </a>
+    <label for="text">Текст</label><input type="text" name="text" id="text"/>
+    <br>
+    <br>
+    <label for="key">Ключ</label><input type="text" name="key" id="key"/>
+    <br>
+    <button type="submit" name="action" value="Зашифровать">Зашифровать</button>
+    <button type="submit" name="action" value="Расшифровать">Расшифровать</button>
+    <br>
+</form>
+
+<p th:text="${result}" id="result"></p>
+
+<a href="/lab1/vigenere/download" th:if="${result != null and result != ''}">Скачать результат</a>
 
 </body>
 </html>
