@@ -12,28 +12,22 @@
         <label for="text">Текст для шифра Плейфера на английском языке</label>
 
         <br>
-
-        <label for="key">Ключ</label><input type="text" name="key" id="key"/>
-
-        <br>
-
-        <label for="text">Текст</label><input type="text" name="text" id="text"/>
-
-        <br>
-        <p>ИЛИ</p>
-
-        <label for="file">Файл в формате КЛЮЧ:ТЕКСТ</label>
+        <label for="file">Файл</label>
         <input type="file" name="file" id="file"/>
-
+        <p>ИЛИ</p>
+        <label for="text">Текст</label><input type="text" name="text" id="text"/>
         <br>
-
+        <br>
+        <label for="key">Ключ</label><input type="text" name="key" id="key"/>
+        <br>
         <button type="submit" name="action" value="Зашифровать">Зашифровать</button>
         <button type="submit" name="action" value="Расшифровать">Расшифровать</button>
-
         <br>
     </form>
 
-    <p th:text="${result}"></p>
+    <p th:text="${result}" id="result"></p>
+
+    <a href="/playfair/download" th:if="${result} != 0">Скачать результат</a>
 
 </body>
 </html>
