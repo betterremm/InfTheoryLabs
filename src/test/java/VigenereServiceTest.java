@@ -24,7 +24,7 @@ public class VigenereServiceTest {
     void handleLetterYo() {
         VigenereService cipher = new VigenereService();
 
-        String text = "ЁЖИК"; // текст с буквой Ё
+        String text = "ËЖИК"; // текст с буквой Ё
         String key = "КЛЮЧ";
 
         String encrypted = cipher.encrypt(text, key);
@@ -32,7 +32,7 @@ public class VigenereServiceTest {
         assertFalse(encrypted.isEmpty());
 
         String decrypted = cipher.decrypt(encrypted, key);
-        assertEquals("ЁЖИК", decrypted);
+        assertEquals("ËЖИК", decrypted);
     }
 
     @Test
@@ -63,6 +63,21 @@ public class VigenereServiceTest {
         String decrypted = cipher.decrypt(encrypted, key);
         // Должны восстановиться только буквы текста
         assertEquals("ПРИВЕТ", decrypted);
+    }
+
+    @Test
+    void invalidKey() {
+        VigenereService cipher = new VigenereService();
+
+        String text = "ПРИВЕТ";
+        String key = "120349035Q829035*#Q)$(";
+
+        String encrypted = cipher.encrypt(text, key);
+        assertNotNull(encrypted);
+        assertTrue(encrypted.isEmpty(), "Шифротекст формируется по допустимым символам ключа");
+
+        String decrypted = cipher.decrypt(encrypted, key);
+        assertTrue(decrypted.isEmpty(), "Шифротекст формируется по допустимым символам ключа");
     }
 
     @Test

@@ -2,36 +2,165 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Плейфер</title>
+    <title>Виженер</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #42275a, #734b6d);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            width: 450px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #734b6d;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .or {
+            text-align: center;
+            margin: 10px 0;
+            color: #777;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        button {
+            width: 48%;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button[value="Зашифровать"] {
+            background: #734b6d;
+            color: white;
+        }
+
+        button[value="Зашифровать"]:hover {
+            background: #42275a;
+        }
+
+        button[value="Расшифровать"] {
+            background: #6c757d;
+            color: white;
+        }
+
+        button[value="Расшифровать"]:hover {
+            background: #495057;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f4f6fa;
+            border-radius: 8px;
+            min-height: 20px;
+            word-wrap: break-word;
+        }
+
+        .nav-link {
+            display: block;
+            text-align: center;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #734b6d;
+            font-weight: 600;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        .download-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            color: #28a745;
+        }
+
+        .download-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
+
 <body>
 
-<a href="/lab1">Навигация по лабораторной №1</a>
+<div class="container">
 
-<form method="post" action="/lab1/vigenere" enctype="multipart/form-data">
-    <label for="text">Текст для шифра Виженера на английском языке</label>
+    <a href="/lab1" class="nav-link">Навигация по лабораторной №1</a>
 
-    <br>
-    <label for="file">Файл</label>
-    <input type="file" name="file" id="file"/>
-    <a>
+    <h1>Шифр Виженера</h1>
 
-        ИЛИ
+    <form method="post" action="/lab1/vigenere" enctype="multipart/form-data">
 
+        <label>Файл</label>
+        <input type="file" name="file" id="file"/>
+
+        <div class="or">ИЛИ</div>
+
+        <label>Текст</label>
+        <input type="text" name="text" id="text"/>
+
+        <label>Ключ</label>
+        <input type="text" name="key" id="key"/>
+
+        <div class="buttons">
+            <button type="submit" name="action" value="encrypt">Зашифровать</button>
+            <button type="submit" name="action" value="decrypt">Расшифровать</button>
+        </div>
+
+    </form>
+
+    <p th:text="${result}" id="result"></p>
+
+    <a href="/lab1/vigenere/download"
+       th:if="${result != null and result != ''}"
+       class="download-link">
+        Скачать результат
     </a>
-    <label for="text">Текст</label><input type="text" name="text" id="text"/>
-    <br>
-    <br>
-    <label for="key">Ключ</label><input type="text" name="key" id="key"/>
-    <br>
-    <button type="submit" name="action" value="Зашифровать">Зашифровать</button>
-    <button type="submit" name="action" value="Расшифровать">Расшифровать</button>
-    <br>
-</form>
 
-<p th:text="${result}" id="result"></p>
-
-<a href="/lab1/vigenere/download" th:if="${result != null and result != ''}">Скачать результат</a>
+</div>
 
 </body>
 </html>

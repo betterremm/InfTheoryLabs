@@ -14,14 +14,15 @@ public class PlayfairServiceTest {
         String encrypted = cipher.encrypt(text, key);
         assertNotNull(encrypted);
         assertFalse(encrypted.isEmpty(), "Шифротекст не должен быть пустым");
+        assertEquals("ISKYIQEWFQKC", encrypted);
 
         String decrypted = cipher.decrypt(encrypted, key);
         // Фильтруем исходный текст, чтобы сравнить только валидные буквы
-        assertEquals("HELLOWORLD", decrypted);
+        assertEquals("HELXLOWORLDX", decrypted);
     }
 
     @Test
-    void evenLengthText() {
+    void oddLengthText() {
         PlayfairService cipher = new PlayfairService();
 
         String text = "TESTING"; // длина 7 → нечётная
@@ -32,14 +33,14 @@ public class PlayfairServiceTest {
         assertFalse(encrypted.isEmpty());
 
         String decrypted = cipher.decrypt(encrypted, key);
-        assertEquals("TESTING", decrypted);
+        assertEquals("TESTINGX", decrypted);
     }
 
     @Test
-    void oddLengthText() {
+    void evenLength(){
         PlayfairService cipher = new PlayfairService();
 
-        String text = "HELLO"; // длина 5 → нечётная
+        String text = "KILKER"; // длина 6 → чётная
         String key = "KEY";
 
         String encrypted = cipher.encrypt(text, key);
@@ -47,14 +48,28 @@ public class PlayfairServiceTest {
         assertFalse(encrypted.isEmpty());
 
         String decrypted = cipher.decrypt(encrypted, key);
-        assertEquals("HELLO", decrypted);
+        assertEquals("KILKER", decrypted);
+    }
+    @Test
+    void evenLengthButRepeatedLetterText() {
+        PlayfairService cipher = new PlayfairService();
+
+        String text = "KILLER"; // длина 6 → чётная
+        String key = "KEY";
+
+        String encrypted = cipher.encrypt(text, key);
+        assertNotNull(encrypted);
+        assertFalse(encrypted.isEmpty());
+
+        String decrypted = cipher.decrypt(encrypted, key);
+        assertEquals("KILXLERX", decrypted);
     }
 
     @Test
     void repeatedLetters() {
         PlayfairService cipher = new PlayfairService();
 
-        String text = "BALLOON"; // подряд две одинаковые буквы: L
+        String text = "BALLOON"; // подряд две одинаковые буквы: L и O
         String key = "SECRET";
 
         String encrypted = cipher.encrypt(text, key);
@@ -63,7 +78,7 @@ public class PlayfairServiceTest {
 
         String decrypted = cipher.decrypt(encrypted, key);
         // Должны восстановиться только валидные буквы без добавочного X
-        assertEquals("BALLOON", decrypted);
+        assertEquals("BALXLOON", decrypted);
     }
 
     @Test
@@ -92,7 +107,7 @@ public class PlayfairServiceTest {
         assertFalse(encrypted.isEmpty());
 
         String decrypted = cipher.decrypt(encrypted, key);
-        assertEquals("XXHELLOXX", decrypted);
+        assertEquals("XXXHELLOXXXX", decrypted);
     }
 
     @Test

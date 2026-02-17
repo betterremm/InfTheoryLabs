@@ -3,23 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <title>Шифры</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #141e30, #243b55);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            margin-bottom: 35px;
+            color: #243b55;
+        }
+
+        .nav-link {
+            display: block;
+            margin: 15px 0;
+            padding: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .main-link {
+            background: #6c757d;
+            color: white;
+        }
+
+        .main-link:hover {
+            background: #495057;
+        }
+
+        .playfair-link {
+            background: #2a5298;
+            color: white;
+        }
+
+        .playfair-link:hover {
+            background: #1e3c72;
+        }
+
+        .vigenere-link {
+            background: #734b6d;
+            color: white;
+        }
+
+        .vigenere-link:hover {
+            background: #42275a;
+        }
+    </style>
 </head>
+
 <body>
-    <a href="/">
+
+<div class="container">
+
+    <h1>Выбор шифра</h1>
+
+    <a href="/" class="nav-link main-link">
         Навигация по лабораторным
-
     </a>
 
-    <a href="lab1/playfair">
+    <a href="lab1/playfair" class="nav-link playfair-link">
         Playfair cipher
-
     </a>
 
-    <a href="lab1/vigenere">
+    <a href="lab1/vigenere" class="nav-link vigenere-link">
         Vigenere cipher
-
     </a>
 
+</div>
 
 </body>
 </html>

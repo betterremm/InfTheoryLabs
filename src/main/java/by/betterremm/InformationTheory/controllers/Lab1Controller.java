@@ -47,7 +47,7 @@ public class Lab1Controller {
 
         session.removeAttribute("error");
 
-        return "lab1/" + cipher;
+        return "redirect:/lab1/" + cipher;
     }
 
 
@@ -76,19 +76,26 @@ public class Lab1Controller {
             return "redirect:/lab1/" + cipher;
         }
 
-
-        if (action.equals("Зашифровать")) {
-            String result = cipherServices.get(cipher).encrypt(key, inputData);
-            model.addAttribute("result", result);
-            session.setAttribute(action, "encrypt");
-            session.setAttribute(cipher, result);
+        String result;
+        if (action.equals("encrypt")) {
+            System.out.println(key);
+            System.out.println(inputData);
+            System.out.println(cipher);
+            result = cipherServices.get(cipher).encrypt(inputData, key);
+            System.out.println(result);
+            System.out.println("encrypt");
         }
         else {
-            String result = cipherServices.get(cipher).decrypt(key, inputData);
-            model.addAttribute("result", result);
-            session.setAttribute(action, "decrypt");
-            session.setAttribute(cipher, result);
+            System.out.println(key);
+            System.out.println(inputData);
+            System.out.println(cipher);
+            result = cipherServices.get(cipher).decrypt(inputData, key);
+            System.out.println(result);
+            System.out.println("decrypt");
         }
+        model.addAttribute("result", result);
+        session.setAttribute(cipher, result);
+        session.setAttribute("action", action);
 
         return "redirect:/lab1/" + cipher;
     }

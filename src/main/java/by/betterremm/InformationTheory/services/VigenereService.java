@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 @Service("vigenere")
 public class VigenereService implements CipherService {
-    private static final String ALPHABET = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
+    private static final String ALPHABET = "АБВГДЕËЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
     private static final int N = ALPHABET.length();
 
 
