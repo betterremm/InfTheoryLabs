@@ -24,15 +24,16 @@ public class VigenereServiceTest {
     void handleLetterYo() {
         VigenereService cipher = new VigenereService();
 
-        String text = "ËЖИК"; // текст с буквой Ё
-        String key = "КЛЮЧ";
+        String text = "ЁЖИККОЛЮЧИЙ"; // текст с буквой Ё
+        String key = "НОВЫЙКЛЮЧ";
 
         String encrypted = cipher.encrypt(text, key);
         assertNotNull(encrypted);
         assertFalse(encrypted.isEmpty());
+        System.out.println(encrypted);
 
         String decrypted = cipher.decrypt(encrypted, key);
-        assertEquals("ËЖИК", decrypted);
+        assertEquals("ЁЖИККОЛЮЧИЙ", decrypted);
     }
 
     @Test

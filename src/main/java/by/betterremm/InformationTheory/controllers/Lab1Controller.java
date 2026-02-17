@@ -47,7 +47,7 @@ public class Lab1Controller {
 
         session.removeAttribute("error");
 
-        return "redirect:/lab1/" + cipher;
+        return "lab1/" + cipher;
     }
 
 

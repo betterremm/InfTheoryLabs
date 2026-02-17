@@ -12,8 +12,9 @@
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            align-items: flex-start;
+            padding-top: 40px;
         }
 
         .container {
@@ -121,6 +122,40 @@
         .download-link:hover {
             text-decoration: underline;
         }
+
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f4f6fa;
+            border-radius: 8px;
+            max-height: 120px;      /* высота в свернутом виде */
+            overflow: hidden;
+            position: relative;
+            transition: max-height 0.4s ease;
+        }
+
+        #result.expanded {
+            max-height: 500px;      /* раскрытая высота */
+            overflow-y: auto;
+        }
+
+        .read-more {
+            display: none;
+            margin-top: 10px;
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 8px;
+            background: #2a5298;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .read-more:hover {
+            background: #1e3c72;
+        }
+
     </style>
 </head>
 
@@ -154,6 +189,10 @@
 
     <p th:text="${result}" id="result"></p>
 
+    <button type="button" id="toggleResult" class="read-more">
+        Читать далее
+    </button>
+
     <a href="/lab1/playfair/download"
        th:if="${result != null and result != ''}"
        class="download-link">
@@ -161,6 +200,24 @@
     </a>
 
 </div>
+<script>
+    const result = document.getElementById("result");
+    const btn = document.getElementById("toggleResult");
+
+    if (result && result.innerText.length > 300) {
+        btn.style.display = "block";
+    }
+
+    btn.addEventListener("click", () => {
+        result.classList.toggle("expanded");
+
+        if (result.classList.contains("expanded")) {
+            btn.textContent = "Свернуть";
+        } else {
+            btn.textContent = "Читать далее";
+        }
+    });
+</script>
 
 </body>
 </html>
