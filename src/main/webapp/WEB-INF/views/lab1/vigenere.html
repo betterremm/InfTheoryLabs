@@ -94,6 +94,32 @@
             border-radius: 8px;
             min-height: 20px;
             word-wrap: break-word;
+            max-height: 120px;      /* высота в свернутом виде */
+            overflow: hidden;
+            position: relative;
+            transition: max-height 0.4s ease;
+        }
+
+        #result.expanded {
+            max-height: 500px;      /* раскрытая высота */
+            overflow-y: auto;
+        }
+
+        .read-more {
+            display: none;
+            margin-top: 10px;
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 8px;
+            background: #734b6d;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .read-more:hover {
+            background: #42275a;
         }
 
         .nav-link {
@@ -153,14 +179,44 @@
     </form>
 
     <p th:text="${result}" id="result"></p>
+    <button type="button" id="toggleResult" class="read-more">
+        Читать далее
+    </button>
 
     <a href="/lab1/vigenere/download"
        th:if="${result != null and result != ''}"
-       class="download-link">
+       class="download-link"
+       id="downloadLink">
         Скачать результат
     </a>
 
+
 </div>
+<script>
+    const result = document.getElementById("result");
+    const btn = document.getElementById("toggleResult");
+    const downloadLink = document.getElementById("downloadLink");
+
+    if (result && result.innerText.length > 300) {
+        btn.style.display = "block";
+    }
+
+    btn.addEventListener("click", () => {
+        result.classList.toggle("expanded");
+
+        if (result.classList.contains("expanded")) {
+            btn.textContent = "Свернуть";
+        } else {
+            btn.textContent = "Читать далее";
+        }
+    });
+
+    if (downloadLink) {
+        downloadLink.addEventListener("click", () => {
+            downloadLink.style.display = "none";
+        });
+    }
+</script>
 
 </body>
 </html>

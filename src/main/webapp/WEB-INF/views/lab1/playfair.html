@@ -195,7 +195,8 @@
 
     <a href="/lab1/playfair/download"
        th:if="${result != null and result != ''}"
-       class="download-link">
+       class="download-link"
+       id="downloadLink">
         Скачать результат
     </a>
 
@@ -203,6 +204,7 @@
 <script>
     const result = document.getElementById("result");
     const btn = document.getElementById("toggleResult");
+    const downloadLink = document.getElementById("downloadLink");
 
     if (result && result.innerText.length > 300) {
         btn.style.display = "block";
@@ -217,6 +219,13 @@
             btn.textContent = "Читать далее";
         }
     });
+
+    if (downloadLink) {
+        downloadLink.addEventListener("click", () => {
+            // сразу скрываем ссылку после первого клика
+            downloadLink.style.display = "none";
+        });
+    }
 </script>
 
 </body>
