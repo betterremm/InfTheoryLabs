@@ -140,10 +140,10 @@
         <div class="or">ИЛИ</div>
 
         <label>Текст</label>
-        <input type="text" name="text" id="text"/>
+        <input type="text" name="text" id="text" th:value="${text}"/>
 
         <label>Ключ</label>
-        <input type="text" name="key" id="key"/>
+        <input type="text" name="key" id="key" th:value="${key}"/>
 
         <div class="buttons">
             <button type="submit" name="action" value="encrypt">Зашифровать</button>

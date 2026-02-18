@@ -40,9 +40,13 @@ public class Lab1Controller {
                            @PathVariable("cipher") String cipher) {
 
         Object result = session.getAttribute(cipher);
+        Object text = session.getAttribute(cipher + "_text");
+        Object key = session.getAttribute(cipher + "_key");
         Object error = session.getAttribute("error");
 
         model.addAttribute("result", result);
+        model.addAttribute("text", text);
+        model.addAttribute("key", key);
         model.addAttribute("error", error);
 
         session.removeAttribute("error");
@@ -95,6 +99,8 @@ public class Lab1Controller {
         }
         model.addAttribute("result", result);
         session.setAttribute(cipher, result);
+        session.setAttribute(cipher + "_text", text);
+        session.setAttribute(cipher + "_key", key);
         session.setAttribute("action", action);
 
         return "redirect:/lab1/" + cipher;
