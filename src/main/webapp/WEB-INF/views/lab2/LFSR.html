@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Плейфер</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            align-items: flex-start;
+            padding-top: 40px;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            width: 450px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #2a5298;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .or {
+            text-align: center;
+            margin: 10px 0;
+            color: #777;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        button {
+            width: 48%;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button[value="encrypt"] {
+            background: #2a5298;
+            color: white;
+        }
+
+        button[value="encrypt"]:hover {
+            background: #1e3c72;
+        }
+
+        button[value="decrypt"] {
+            background: #6c757d;
+            color: white;
+        }
+
+        button[value="decrypt"]:hover {
+            background: #495057;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f4f6fa;
+            border-radius: 8px;
+            min-height: 20px;
+            word-wrap: break-word;
+        }
+
+        .nav-link {
+            display: block;
+            text-align: center;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #2a5298;
+            font-weight: 600;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        .download-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            color: #28a745;
+        }
+
+        .download-link:hover {
+            text-decoration: underline;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f4f6fa;
+            border-radius: 8px;
+            max-height: 120px;      /* высота в свернутом виде */
+            overflow: hidden;
+            position: relative;
+            transition: max-height 0.4s ease;
+        }
+
+        #result.expanded {
+            max-height: 500px;      /* раскрытая высота */
+            overflow-y: auto;
+        }
+
+        .read-more {
+            display: none;
+            margin-top: 10px;
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 8px;
+            background: #2a5298;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .read-more:hover {
+            background: #1e3c72;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <a href="/lab1" class="nav-link">Навигация по лабораторной №1</a>
+
+    <h1>Шифр Плейфера</h1>
+
+    <form method="post" action="/lab1/playfair" enctype="multipart/form-data">
+
+        <label>Файл</label>
+        <input type="file" name="file" id="file"/>
+
+        <div class="or">ИЛИ</div>
+
+        <label>Текст</label>
+        <input type="text" name="text" id="text" th:value="${text}"/>
+
+        <label>Ключ</label>
+        <input type="text" name="key" id="key" th:value="${key}"/>
+
+        <div class="buttons">
+            <button type="submit" name="action" value="encrypt">Зашифровать</button>
+            <button type="submit" name="action" value="decrypt">Расшифровать</button>
+        </div>
+
+    </form>
+
+    <p th:text="${result}" id="result"></p>
+
+    <button type="button" id="toggleResult" class="read-more">
+        Читать далее
+    </button>
+
+    <a href="/lab1/playfair/download"
+       th:if="${result != null and result != ''}"
+       class="download-link"
+       id="downloadLink">
+        Скачать результат
+    </a>
+
+</div>
+<script>
+    const result = document.getElementById("result");
+    const btn = document.getElementById("toggleResult");
+    const downloadLink = document.getElementById("downloadLink");
+
+    if (result && result.innerText.length > 300) {
+        btn.style.display = "block";
+    }
+
+    btn.addEventListener("click", () => {
+        result.classList.toggle("expanded");
+
+        if (result.classList.contains("expanded")) {
+            btn.textContent = "Свернуть";
+        } else {
+            btn.textContent = "Читать далее";
+        }
+    });
+
+    if (downloadLink) {
+        downloadLink.addEventListener("click", () => {
+            // сразу скрываем ссылку после первого клика
+            downloadLink.style.display = "none";
+        });
+    }
+</script>
+
+</body>
+</html>
