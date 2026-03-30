@@ -20,7 +20,7 @@ public class LFSRFileService {
             byte processedByte = 0;
             for (int i = 7; i >= 0; i--) {
                 int inputBit = (b >> i) & 1;
-                int keyBit = reg[0]; // выход LFSR
+                int keyBit = reg[0];
                 keyStreamBits.append(keyBit);
 
                 int newBit = 0;
@@ -34,7 +34,6 @@ public class LFSRFileService {
             output.add(processedByte);
         }
 
-        // вывод ключевого потока (для визуализации)
         System.out.println("Generated Key (binary):");
         System.out.println(keyStreamBits.toString());
 
@@ -71,7 +70,6 @@ public class LFSRFileService {
         StringBuilder keyBuilder = new StringBuilder();
         byte[] output = new byte[input.length];
 
-        // копия регистра
         long reg = 0;
         for (char c : registerState.toCharArray()) {
             reg <<= 1;
@@ -84,14 +82,13 @@ public class LFSRFileService {
             byte outByte = 0;
 
             for (int j = 7; j >= 0; j--) {
-                int regOut = (int)((reg >> 33) & 1); // старший бит регистра
+                int regOut = (int)((reg >> 33) & 1);
                 keyBuilder.append(regOut);
-                int bit = ((b >> j) & 1) ^ regOut; // XOR с входным битом
+                int bit = ((b >> j) & 1) ^ regOut;
                 outByte |= bit << j;
 
-                // считаем новый бит по многочлену: x^34 + x^15 + x^14 + x + 1
                 int newBit = (int) (((reg >> 33) ^ (reg >> 14) ^ (reg >> 13) ^ (reg >> 0)) & 1);
-                reg = ((reg << 1) & 0x3FFFFFFFFL) | newBit; // 34-битный регистр
+                reg = ((reg << 1) & 0x3FFFFFFFFL) | newBit;
             }
 
             output[i] = outByte;

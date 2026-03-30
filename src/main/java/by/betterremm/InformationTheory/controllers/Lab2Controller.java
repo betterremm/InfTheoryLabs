@@ -23,7 +23,6 @@ public class Lab2Controller {
 
     @GetMapping("")
     public String lab2Page(Model model, HttpSession session) {
-        // достаем результат если был
         Object result = session.getAttribute("result");
         Object originalBinary = session.getAttribute("originalBinary");
         Object processedBinary = session.getAttribute("processedBinary");
@@ -34,7 +33,6 @@ public class Lab2Controller {
         model.addAttribute("processedBinary", processedBinary);
         model.addAttribute("filename", filename);
 
-        // очищаем сессию
         session.removeAttribute("result");
         session.removeAttribute("originalBinary");
         session.removeAttribute("processedBinary");
@@ -75,7 +73,6 @@ public class Lab2Controller {
                 return "lab2/lab2";
             }
 
-            // 🔹 Получаем LFSRResult
             LFSRResult lfsrResult = lfsrService.processWithKey(inputBytes, registerState);
             byte[] outputBytes = lfsrResult.getOutputBytes();
             String lfsrKey = formatBinary(lfsrResult.getKeyBinary());

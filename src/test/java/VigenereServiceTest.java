@@ -33,7 +33,7 @@ public class VigenereServiceTest {
         System.out.println(encrypted);
 
         String decrypted = cipher.decrypt(encrypted, key);
-        assertEquals("ЁЖИККОЛЮЧИЙ", decrypted);
+        assertEquals("ËЖИККОЛЮЧИЙ", decrypted);
     }
 
     @Test

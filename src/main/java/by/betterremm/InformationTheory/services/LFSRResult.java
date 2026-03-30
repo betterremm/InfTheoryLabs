@@ -2,8 +2,8 @@ package by.betterremm.InformationTheory.services;
 
 public class LFSRResult {
 
-    private final byte[] outputBytes;  // зашифрованные/расшифрованные байты
-    private final String keyBinary;    // ключ LFSR в виде строки 0 и 1
+    private final byte[] outputBytes;
+    private final String keyBinary;
 
     public LFSRResult(byte[] outputBytes, String keyBinary) {
         this.outputBytes = outputBytes;
