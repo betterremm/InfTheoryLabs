@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LFSR</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #eef2f7;
+            display:flex;
+            justify-content:center;
+            padding-top:40px;
+        }
+        .container {
+            background:white;
+            padding:30px;
+            border-radius:12px;
+            width:980px;
+            box-shadow:0 10px 20px rgba(0,0,0,0.2);
+        }
+        h1 {
+            text-align:center;
+            color:#2a5298;
+            margin-bottom:20px;
+        }
+        label {
+            font-weight:600;
+            font-size:14px;
+            display:block;
+            margin-bottom:5px;
+        }
+        input[type="text"], textarea, input[type="file"] {
+            width:100%;
+            padding:10px;
+            margin-bottom:15px;
+            border-radius:8px;
+            border:1px solid #ccc;
+            font-family: monospace;
+            font-size:14px;
+            box-sizing: border-box;
+        }
+        input#register_state {
+            font-size:16px;
+            padding:12px;
+            letter-spacing:2px;
+        }
+        .buttons {
+            display:flex;
+            justify-content:space-between;
+            margin-bottom:20px;
+        }
+        button {
+            width:48%;
+            padding:10px;
+            border-radius:8px;
+            border:none;
+            font-weight:bold;
+            cursor:pointer;
+        }
+        button[value="encrypt"] { background:#2a5298; color:white; }
+        button[value="decrypt"] { background:#6c757d; color:white; }
+        .binary-container {
+            display:flex;
+            justify-content:space-between;
+            margin-top:20px;
+            gap:20px;
+        }
+        .binary-box {
+            width:32%;
+            background:#f4f6fa;
+            border-radius:8px;
+            padding:10px;
+            max-height:300px;
+            overflow-y:auto;
+            word-wrap:break-word;
+            border:1px solid #ccc;
+            font-family: monospace;
+            font-size:13px;
+        }
+        .download-button {
+            display:block;
+            margin:0 auto 10px;
+            padding:10px 20px;
+            background:#28a745;
+            color:white;
+            font-weight:bold;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+            text-decoration:none;
+            text-align:center;
+        }
+        .download-button:hover { background:#218838; }
+        .message {
+            text-align:center;
+            color:#d9534f;
+            font-weight:bold;
+            margin-bottom:10px;
+        }
+        .nav-link {
+            display: block;
+            text-align: center;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #2a5298;
+            font-weight: 600;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <a href="/" class="nav-link">Навигация по лабораторным</a>
+
+    <h1>LFSR Lab2</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        <label>Начальное состояние регистра (только 0 и 1)</label>
+        <input type="text" id="register_state" name="register_state" th:value="${register_state}" placeholder="Введите 34 бита"/>
+        <div class="message" th:text="${registerMessage}"></div>
+
+        <label>Текст для шифровки (многострочный)</label>
+        <textarea name="text" rows="6" th:text="${text}"></textarea>
+
+        <label>Файл (необязательно)</label>
+        <input type="file" name="file"/>
+
+        <div class="buttons">
+            <button type="submit" name="action" value="encrypt">Зашифровать</button>
+            <button type="submit" name="action" value="decrypt">Расшифровать</button>
+        </div>
+    </form>
+
+    <div th:if="${filename}">
+        <a th:href="@{'/lab2/download/' + ${filename}}" class="download-button" th:text="'Скачать ' + ${filename}"></a>
+    </div>
+
+    <div class="binary-container">
+        <div class="binary-box">
+            <h3>Исходный файл/текст в двоичном виде</h3>
+            <p th:text="${originalBinary}"></p>
+        </div>
+
+        <div class="binary-box">
+            <h3>Обработанный файл/текст в двоичном виде</h3>
+            <p th:text="${processedBinary}"></p>
+        </div>
+
+        <div class="binary-box">
+            <h3>Ключевая последовательность LFSR</h3>
+            <p th:text="${lfsrKey}"></p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const registerInput = document.getElementById('register_state');
+    registerInput.addEventListener('input', () => {
+        // оставляем только 0 и 1
+        registerInput.value = registerInput.value.replace(/[^01]/g, '');
+    });
+</script>
+
+</body>
+</html>

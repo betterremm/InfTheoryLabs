@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 @Service("vigenere")
 public class VigenereService implements CipherService {
-    private static final String ALPHABET = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
+    private static final String ALPHABET = "АБВГДЕËЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
     private static final int N = ALPHABET.length();
 
 
@@ -57,6 +57,7 @@ public class VigenereService implements CipherService {
     }
 
     private static String filter(String s) {
+        s = s.replace(Character.toUpperCase('ё'), 'Ë');
         StringBuilder sb = new StringBuilder();
         for (char c : s.toCharArray())
             if (ALPHABET.indexOf(c) >= 0)

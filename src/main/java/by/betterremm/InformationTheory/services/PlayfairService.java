@@ -16,7 +16,7 @@ public class PlayfairService implements CipherService {
     public String encrypt(String text, String key) {
         if (text == null || key == null) return "";
 
-        text = filter(text.toUpperCase());
+        text = filter(normalize(text.toUpperCase()));
         key = filter(normalize(key.toUpperCase()));
 
         if (text.isEmpty() || key.isEmpty()) return "";
