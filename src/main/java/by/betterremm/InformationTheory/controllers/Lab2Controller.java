@@ -52,7 +52,6 @@ public class Lab2Controller {
             Model model
     ) {
         try {
-            // 🔹 Нормализация регистра
             StringBuilder msg = new StringBuilder();
             registerState = registerState.replaceAll("[^01]", ""); // только 0 и 1
 
@@ -81,7 +80,7 @@ public class Lab2Controller {
             byte[] outputBytes = lfsrResult.getOutputBytes();
             String lfsrKey = formatBinary(lfsrResult.getKeyBinary());
 
-            String outputFileName = "output_" + (file != null && !file.isEmpty() ? file.getOriginalFilename() : "text.txt");
+            String outputFileName = (file != null && !file.isEmpty() && file.getOriginalFilename() != null ? (file.getOriginalFilename().endsWith(".enc")? file.getOriginalFilename().substring(0, file.getOriginalFilename().length() - 4) : file.getOriginalFilename() + ".enc") : "text.txt");
             File outFile = new File(System.getProperty("user.dir") + "/" + outputFileName);
             try (FileOutputStream fos = new FileOutputStream(outFile)) {
                 fos.write(outputBytes);
